@@ -24,35 +24,35 @@ binary: binary-arch
 
 binary-arch: libcpplocate-meta libcpplocate libcpplocate-dev libcpplocate-docs libcpplocate-dbg libcpplocate-all liblocate liblocate-dev liblocate-docs liblocate-dbg liblocate-all
 
-libcpplocate-meta:
+libcpplocate-meta: build
 	cd $(BUILDDIR); DESTDIR=../debian/tmp COMPONENT=meta make component_install
 	mkdir -p debian/tmp/DEBIAN
 	dpkg-gencontrol -plibcpplocate-meta
 	dpkg --build debian/tmp ..
 	rm -rf debian/tmp
 
-libcpplocate:
+libcpplocate: build
 	cd $(BUILDDIR); DESTDIR=../debian/tmp COMPONENT=runtime_cpp make component_install
 	mkdir -p debian/tmp/DEBIAN
 	dpkg-gencontrol -plibcpplocate
 	dpkg --build debian/tmp ..
 	rm -rf debian/tmp
 
-libcpplocate-dev:
+libcpplocate-dev: build
 	cd $(BUILDDIR); DESTDIR=../debian/tmp COMPONENT=dev_cpp make component_install
 	mkdir -p debian/tmp/DEBIAN
 	dpkg-gencontrol -plibcpplocate-dev
 	dpkg --build debian/tmp ..
 	rm -rf debian/tmp
 
-libcpplocate-docs:
+libcpplocate-docs: build
 	cd $(BUILDDIR); DESTDIR=../debian/tmp COMPONENT=docs make component_install
 	mkdir -p debian/tmp/DEBIAN
 	dpkg-gencontrol -plibcpplocate-docs
 	dpkg --build debian/tmp ..
 	rm -rf debian/tmp
 
-libcpplocate-dbg:
+libcpplocate-dbg: build
 	cd $(BUILDDEBUGDIR); DESTDIR=../debian/tmp COMPONENT=runtime_cpp make component_install
 	cd $(BUILDDEBUGDIR); DESTDIR=../debian/tmp COMPONENT=dev_cpp make component_install
 	rm -rf debian/tmp/usr/include
@@ -63,7 +63,7 @@ libcpplocate-dbg:
 	dpkg --build debian/tmp ..
 	rm -rf debian/tmp
 
-libcpplocate-all:
+libcpplocate-all: build
 	mkdir -p debian/tmp/DEBIAN
 	dpkg-gencontrol -plibcpplocate-all
 	dpkg --build debian/tmp ..
@@ -76,20 +76,20 @@ liblocate:
 	dpkg --build debian/tmp ..
 	rm -rf debian/tmp
 
-liblocate-dev:
+liblocate-dev: build
 	cd $(BUILDDIR); DESTDIR=../debian/tmp COMPONENT=dev_c make component_install
 	mkdir -p debian/tmp/DEBIAN
 	dpkg-gencontrol -pliblocate-dev
 	dpkg --build debian/tmp ..
 	rm -rf debian/tmp
 
-liblocate-docs:
+liblocate-docs: build
 	mkdir -p debian/tmp/DEBIAN
 	dpkg-gencontrol -pliblocate-docs
 	dpkg --build debian/tmp ..
 	rm -rf debian/tmp
 
-liblocate-dbg:
+liblocate-dbg: build
 	cd $(BUILDDEBUGDIR); DESTDIR=../debian/tmp COMPONENT=runtime_c make component_install
 	cd $(BUILDDEBUGDIR); DESTDIR=../debian/tmp COMPONENT=dev_c make component_install
 	rm -rf debian/tmp/usr/include
@@ -100,7 +100,7 @@ liblocate-dbg:
 	dpkg --build debian/tmp ..
 	rm -rf debian/tmp
 
-liblocate-all:
+liblocate-all: build
 	mkdir -p debian/tmp/DEBIAN
 	dpkg-gencontrol -pliblocate-all
 	dpkg --build debian/tmp ..
